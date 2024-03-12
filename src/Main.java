@@ -38,6 +38,7 @@ public class Main {
                 secondNum.append(c);
             } else {
                 System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
+                System.exit(0);
             }
         }
         System.out.println(FinalCalculations(Integer.parseInt(firstNum.toString()), Integer.parseInt(secondNum.toString()), sign));
@@ -47,9 +48,9 @@ public class Main {
     public static void RomanLogic(char [] usersCharArr, char sign, boolean firstDigit, StringBuilder firstNum, StringBuilder secondNum){
         int aDigit = 0;
         int bDigit = 0;
+        int result;
 
         for (char c : usersCharArr) {
-
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 sign = c;
                 firstDigit = false;
@@ -59,6 +60,7 @@ public class Main {
                 secondNum.append(c);
             } else {
                 System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
+                System.exit(0);
             }
         }
         for (int i = 0; i < RomanLetter.values().length; i++) {
@@ -75,7 +77,12 @@ public class Main {
 //            bDigit = secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
 //                RomanLetter.values()[i].ordinal() + 1 : 0;
         }
-        System.out.println(FinalCalculations(aDigit, bDigit, sign));
+        if (FinalCalculations(aDigit, bDigit, sign) > 0){
+            System.out.println(FinalCalculations(aDigit, bDigit, sign));
+        }
+        else {
+            System.out.println("У Римлян не было отрицаельных чисел !");
+        }
     }
 
     public static boolean ContainsInEnum(char letter) {
@@ -84,7 +91,7 @@ public class Main {
                 return true;
             }
             else{
-                return false;
+                continue;
             }
         }
         return false;
