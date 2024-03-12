@@ -38,7 +38,6 @@ public class Main {
                 secondNum.append(c);
             } else {
                 System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
-                break;
             }
         }
         System.out.println(FinalCalculations(Integer.parseInt(firstNum.toString()), Integer.parseInt(secondNum.toString()), sign));
@@ -50,6 +49,7 @@ public class Main {
         int bDigit = 0;
 
         for (char c : usersCharArr) {
+
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 sign = c;
                 firstDigit = false;
@@ -59,16 +59,21 @@ public class Main {
                 secondNum.append(c);
             } else {
                 System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
-                break;
             }
         }
         for (int i = 0; i < RomanLetter.values().length; i++) {
-            aDigit = firstNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
-                    RomanLetter.values()[i].ordinal()+1 : 0;
+            if(firstNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i]))){
+                aDigit = RomanLetter.values()[i].ordinal() + 1;
+            }
+//            aDigit = firstNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
+//                    RomanLetter.values()[i].ordinal() + 1 : 0;
         }
         for (int i = 0; i < RomanLetter.values().length; i++) {
-            bDigit = secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
-                RomanLetter.values()[i].ordinal()+1 : 0;
+            if(secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i]))){
+                bDigit = RomanLetter.values()[i].ordinal() + 1;
+            }
+//            bDigit = secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
+//                RomanLetter.values()[i].ordinal() + 1 : 0;
         }
         System.out.println(FinalCalculations(aDigit, bDigit, sign));
     }
