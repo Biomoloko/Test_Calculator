@@ -32,13 +32,12 @@ public class Main {
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 sign = c;
                 firstDigit = false;
-            } else if (c != '+' && c != '-' && c != '*' && c != '/' && firstDigit == true && Character.isDigit(c)) {
+            } else if (NotSign(c) && firstDigit == true && Character.isDigit(c)) {
                 firstNum.append(c);
-            } else if (c != '+' && c != '-' && c != '*' && c != '/' && firstDigit == false && Character.isDigit(c)) {
+            } else if (NotSign(c) && firstDigit == false && Character.isDigit(c)) {
                 secondNum.append(c);
             } else {
-                System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
-                System.exit(0);
+                throw new ArithmeticException("Вы ввели ерунду ! Попробуйте еще раз.");
             }
         }
         System.out.println(FinalCalculations(Integer.parseInt(firstNum.toString()), Integer.parseInt(secondNum.toString()), sign));
@@ -54,34 +53,28 @@ public class Main {
             if (c == '+' || c == '-' || c == '*' || c == '/') {
                 sign = c;
                 firstDigit = false;
-            } else if (c != '+' && c != '-' && c != '*' && c != '/' && firstDigit == true && ContainsInEnum(c)) {
+            } else if (NotSign(c) && firstDigit == true && ContainsInEnum(c)) {
                 firstNum.append(c);
-            } else if (c != '+' && c != '-' && c != '*' && c != '/' && firstDigit == false && ContainsInEnum(c)) {
+            } else if (NotSign(c) && firstDigit == false && ContainsInEnum(c)) {
                 secondNum.append(c);
             } else {
-                System.out.println("Вы ввели ерунду ! Попробуйте еще раз.");
-                System.exit(0);
+                throw new ArithmeticException("Вы ввели ерунду ! Попробуйте еще раз.");
             }
         }
         for (int i = 0; i < RomanLetter.values().length; i++) {
             if(firstNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i]))){
                 aDigit = RomanLetter.values()[i].ordinal() + 1;
             }
-//            aDigit = firstNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
-//                    RomanLetter.values()[i].ordinal() + 1 : 0;
-        }
-        for (int i = 0; i < RomanLetter.values().length; i++) {
             if(secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i]))){
                 bDigit = RomanLetter.values()[i].ordinal() + 1;
             }
-//            bDigit = secondNum.toString().equals(RomanLetter.values()[i].getRomanConverted(RomanLetter.values()[i])) ?
-//                RomanLetter.values()[i].ordinal() + 1 : 0;
         }
-        if (FinalCalculations(aDigit, bDigit, sign) > 0){
+
+        if (FinalCalculations(aDigit, bDigit, sign) >= 0){
             System.out.println(FinalCalculations(aDigit, bDigit, sign));
         }
         else {
-            System.out.println("У Римлян не было отрицаельных чисел !");
+            throw new ArithmeticException("У Римлян не было отрицаельных чисел !");
         }
     }
 
@@ -97,6 +90,9 @@ public class Main {
         return false;
     }
     public static int FinalCalculations(int a, int b, char sign){
+        if (a > 10 ||  b > 10) {
+            throw new ArithmeticException("Число не может быть больше 10 !");
+        }
         switch (sign){
             case '+': return a + b;
             case '-': return a - b;
@@ -104,6 +100,10 @@ public class Main {
             case '/': return a / b;
         }
         return 0;
+    }
+
+    public static boolean NotSign(char c){
+        return c != '+' && c != '-' && c != '*' && c != '/';
     }
     enum RomanLetter{
         I("I"), II("II"), III("III"), IV("IV"), V("V"),
