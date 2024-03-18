@@ -71,7 +71,7 @@ public class Main {
         }
 
         if (FinalCalculations(aDigit, bDigit, sign) >= 0){
-            System.out.println(FinalCalculations(aDigit, bDigit, sign));
+            System.out.println(RomanLetter.values()[FinalCalculations(aDigit, bDigit, sign)-1]);
         }
         else {
             throw new ArithmeticException("У Римлян не было отрицаельных чисел !");
@@ -89,6 +89,7 @@ public class Main {
         }
         return false;
     }
+
     public static int FinalCalculations(int a, int b, char sign){
         if (a > 10 ||  b > 10) {
             throw new ArithmeticException("Число не может быть больше 10 !");
@@ -107,7 +108,9 @@ public class Main {
     }
     enum RomanLetter{
         I("I"), II("II"), III("III"), IV("IV"), V("V"),
-        VI("VI"), VII("VII"), VIII("VIII"), IX("IX"), X("X");
+        VI("VI"), VII("VII"), VIII("VIII"), IX("IX"), X("X"),
+        XI("XI"), XII("XII"), XIII("XIII"), XIV("XIV"), XV("XV"),
+        XVI("XVI"), XVII("XVII"), XVIII("XVIII"), XIX("XIX"), XX("XX");
 
         private String literal;
         RomanLetter(String literal){
